@@ -100,6 +100,6 @@ jobs:
         with:
           context: src/app/06-devsecops
           push: true
-          tags: ghcr.io/${{ github.repository_owner }}/devops-formation-app:${{ github.sha }}
+          tags: ghcr.io/${{ github.repository_owner }}/formation-devops:${{ github.sha }}
           cache-from: type=gha
           cache-to: type=gha,mode=max

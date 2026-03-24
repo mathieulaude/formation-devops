@@ -1,5 +1,5 @@
 {
-    "name": "devops-formation-app",
+    "name": "formation-devops",
     "version": "1.0.0",
     "description": "Application fil rouge — Formation DevOps",
     "main": "src/index.js",

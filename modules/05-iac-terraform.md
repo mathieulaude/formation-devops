@@ -149,7 +149,7 @@ terraform {
 resource "scaleway_instance_server" "app" {
   type  = "DEV2-2"
   image = "ubuntu_jammy"
-  name  = "devops-formation-app"
+  name  = "formation-devops"
   tags  = ["formation", "devops"]
 }
 ```
@@ -220,7 +220,7 @@ level: 2
 **Objectif :** provisionner l'instance et le container registry via Terraform, déclenché depuis le pipeline
 
 ```bash
-cd devops-formation-app/04-terraform/
+cd formation-devops/04-terraform/
 
 # Initialiser Terraform (télécharge le provider Scaleway)
 terraform init

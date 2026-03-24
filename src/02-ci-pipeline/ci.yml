@@ -15,7 +15,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: src/app/02-ci-pipeline
+        working-directory: src/app
 
     steps:
       - uses: actions/checkout@v4
@@ -25,7 +25,7 @@ jobs:
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: src/app/02-ci-pipeline/package-lock.json
+          cache-dependency-path: src/app/package-lock.json
 
       - name: Install dependencies
         run: npm ci
@@ -63,7 +63,7 @@ jobs:
           context: src/app/02-ci-pipeline
           push: ${{ github.ref == 'refs/heads/main' || github.ref == 'refs/heads/develop' }}
           tags: |
-            ghcr.io/${{ github.repository_owner }}/devops-formation-app:${{ github.sha }}
-            ghcr.io/${{ github.repository_owner }}/devops-formation-app:latest
+            ghcr.io/${{ github.repository_owner }}/formation-devops:${{ github.sha }}
+            ghcr.io/${{ github.repository_owner }}/formation-devops:latest
           cache-from: type=gha
           cache-to: type=gha,mode=max

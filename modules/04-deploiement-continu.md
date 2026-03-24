@@ -169,7 +169,7 @@ level: 2
 **Objectif :** déployer automatiquement l'image de l'app sur une instance Scaleway
 
 ```bash
-cd devops-formation-app/03-cd-scaleway/
+cd formation-devops/03-cd-scaleway/
 # .github/workflows/cd.yml + secrets configurés au préalable
 
 # Secrets à configurer dans GitHub (Settings → Secrets) :
