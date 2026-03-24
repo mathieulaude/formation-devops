@@ -216,11 +216,14 @@ level: 2
 **Objectif :** créer un pipeline CI complet sur l'application fil rouge
 
 ```bash
-# Déplacer le fichier 02-ci-pipeline/ci.yml dans .github/workflows
+git checkout develop
+git checkout -b feature/ci-pipeline
 
+# Copier le fichier src/02-ci-pipeline/ci.yml dans .github/workflows
 # Observer la structure : jobs lint-and-test, build, publish
 # Pousser une modification et observer l'exécution dans l'onglet Actions
-git add .
+
+git add .github/
 git commit -m "feat: add CI pipeline"
 git push origin feature/ci-pipeline
 # Ouvrir une PR → observer le pipeline se déclencher
