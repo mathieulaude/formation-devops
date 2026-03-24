@@ -3,5 +3,19 @@ import globals from "globals";
 import { defineConfig } from "eslint/config";
 
 export default defineConfig([
-  { files: ["**/*.{js,mjs,cjs}"], plugins: { js }, extends: ["js/recommended"], languageOptions: { globals: globals.browser } },
+  {
+    files: ["**/*.{js,cjs}"],
+    plugins: { js },
+    extends: ["js/recommended"],
+    languageOptions: {
+      sourceType: "commonjs",
+      globals: globals.node,
+    },
+  },
+  {
+    files: ["**/*.test.js"],
+    languageOptions: {
+      globals: { ...globals.node, ...globals.jest },
+    },
+  },
 ]);
