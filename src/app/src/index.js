@@ -51,7 +51,7 @@ const pool = new Pool({
 });
 
 app.get('/api/health', (_req, res) => {
-    res.json({ status: 'ok', version: process.env.APP_VERSION || '1.0.0' });
+    res.json({ status: 'ok', version: process.env.APP_VERSION || '1.1.0' });
 });
 
 app.get('/metrics', async (_req, res) => {
