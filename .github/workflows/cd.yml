@@ -69,6 +69,9 @@ jobs:
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > /tmp/ssh_key
           chmod 600 /tmp/ssh_key
 
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Deploy to Scaleway instance (production)
         env:
           GHCR_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -78,8 +81,8 @@ jobs:
               ubuntu@${{ secrets.INSTANCE_IP }} \
               "echo '$GHCR_TOKEN' | docker login ghcr.io -u ${{ github.actor }} --password-stdin && \
                cd /opt/app && \
-               docker pull ghcr.io/${{ github.repository_owner }}/formation-devops:${{ needs.check.outputs.sha }} && \
-               GITHUB_REPOSITORY_OWNER=${{ github.repository_owner }} APP_VERSION=${{ needs.check.outputs.sha }} docker compose up -d --no-build"
+               docker pull ghcr.io/${{ env.OWNER }}/formation-devops:${{ needs.check.outputs.sha }} && \
+               GITHUB_REPOSITORY_OWNER=${{ env.OWNER }} APP_VERSION=${{ needs.check.outputs.sha }} docker compose up -d --no-build"
 
       - name: Verify production health
         run: |
