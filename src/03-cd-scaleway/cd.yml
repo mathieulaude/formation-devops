@@ -29,7 +29,7 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Set lowercase owner
-        run: echo "OWNER=$(echo '${{ env.Owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       # Écrire la clé SSH dans un fichier temporaire avant toute connexion
       - name: Setup SSH key
@@ -68,7 +68,7 @@ jobs:
       - uses: actions/checkout@v5
 
       - name: Set lowercase owner
-        run: echo "OWNER=$(echo '${{ env.Owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+        run: echo "OWNER=$(echo '${{ github.repository_owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
 
       - name: Setup SSH key
         run: |
@@ -91,5 +91,4 @@ jobs:
         run: |
           sleep 5
           curl --fail http://${{ secrets.INSTANCE_IP }}/api/health
-            - name: Set lowercase owner
-        run: echo "OWNER=$(echo '${{ env.Owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+            
