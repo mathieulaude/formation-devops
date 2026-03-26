@@ -28,6 +28,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ env.Owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       # Écrire la clé SSH dans un fichier temporaire avant toute connexion
       - name: Setup SSH key
         run: |
@@ -45,7 +48,7 @@ jobs:
               ubuntu@${{ secrets.INSTANCE_IP }} \
               "echo '$GHCR_TOKEN' | docker login ghcr.io -u ${{ github.actor }} --password-stdin && \
                cd /opt/app && \
-               GITHUB_REPOSITORY_OWNER=${{ github.repository_owner }} APP_VERSION=${{ needs.check.outputs.sha }} docker compose up -d --no-build"
+               GITHUB_REPOSITORY_OWNER=${{ env.Owner }} APP_VERSION=${{ needs.check.outputs.sha }} docker compose up -d --no-build"
 
       - name: Smoke test staging
         run: |
@@ -64,6 +67,9 @@ jobs:
     steps:
       - uses: actions/checkout@v5
 
+      - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ env.Owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
+
       - name: Setup SSH key
         run: |
           echo "${{ secrets.SSH_PRIVATE_KEY }}" > /tmp/ssh_key
@@ -78,10 +84,12 @@ jobs:
               ubuntu@${{ secrets.INSTANCE_IP }} \
               "echo '$GHCR_TOKEN' | docker login ghcr.io -u ${{ github.actor }} --password-stdin && \
                cd /opt/app && \
-               docker pull ghcr.io/${{ github.repository_owner }}/formation-devops:${{ needs.check.outputs.sha }} && \
-               GITHUB_REPOSITORY_OWNER=${{ github.repository_owner }} APP_VERSION=${{ needs.check.outputs.sha }} docker compose up -d --no-build"
+               docker pull ghcr.io/${{ env.Owner }}/formation-devops:${{ needs.check.outputs.sha }} && \
+               GITHUB_REPOSITORY_OWNER=${{ env.Owner }} APP_VERSION=${{ needs.check.outputs.sha }} docker compose up -d --no-build"
 
       - name: Verify production health
         run: |
           sleep 5
           curl --fail http://${{ secrets.INSTANCE_IP }}/api/health
+            - name: Set lowercase owner
+        run: echo "OWNER=$(echo '${{ env.Owner }}' | tr '[:upper:]' '[:lower:]')" >> $GITHUB_ENV
